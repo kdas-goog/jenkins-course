@@ -1,18 +1,14 @@
-job('NodeJS example') {
+job('Spring projects') {
     scm {
-        git('git://github.com/wardviaene/docker-demo.git') {  node -> // is hudson.plugins.git.GitSCM
+        git('git://github.com/kdas-goog/spring-boot-2-rest-service-basic') {  node -> // is hudson.plugins.git.GitSCM
             node / gitConfigName('DSL User')
-            node / gitConfigEmail('jenkins-dsl@newtech.academy')
+            //node / gitConfigEmail('jenkins-dsl@newtech.academy')
         }
     }
     triggers {
         scm('H/5 * * * *')
     }
-    wrappers {
-        nodejs('nodejs') // this is the name of the NodeJS installation in 
-                         // Manage Jenkins -> Configure Tools -> NodeJS Installations -> Name
-    }
     steps {
-        shell("npm install")
+        maven('-e clean test')
     }
 }
